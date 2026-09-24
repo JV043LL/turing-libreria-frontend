@@ -1,0 +1,23 @@
+/* Tokens de diseño. Paleta 1 del documento de la prueba (ajusta los hex a los exactos). */
+:root {
+  --color-dark: #102e40;    /* azul marino: header, hero, footer, texto */
+  --color-light: #c7d2d9;   /* gris azulado: fondos claros */
+  --color-deep: #025949;    /* verde profundo */
+  --color-accent: #1fbf92;  /* verde principal: botones y tarjetas destacadas */
+  --color-soft: #6cd9ba;    /* verde claro */
+  --color-white: #ffffff;
+  --color-error: #b3261e;
+
+  --font-base: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Escala de espacios */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-7: 4.5rem;
+
+  --container: 1200px;
+}
