@@ -1,0 +1,23 @@
+/* Espacio inferior extra: las tarjetas destacadas se montan sobre el borde del hero (wireframe) */
+.hero {
+  background: var(--color-dark);
+  color: var(--color-light);
+  padding-block: var(--space-7) calc(var(--space-7) + 60px);
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: center;
+}
+
+.hero__title {
+  font-size: 3rem;
+  max-width: 18ch;
+}
+
+.hero__text {
+  max-width: 55ch;
+}

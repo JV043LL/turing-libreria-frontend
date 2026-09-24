@@ -1,0 +1,21 @@
+/* Las tarjetas suben sobre el hero con margen negativo */
+.featured {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-top: -80px;
+  position: relative;
+}
+
+.featured__card {
+  display: block;
+  min-height: 140px;
+  padding: var(--space-4);
+  background: var(--color-accent);
+  color: var(--color-dark);
+}
+
+.featured__title {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-2);
+}

@@ -1,0 +1,17 @@
+.genre-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.genre-filter__option {
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-dark);
+}
+
+/* Opcion seleccionada: aria-pressed sirve para el estilo y para lectores de pantalla */
+.genre-filter__option[aria-pressed='true'] {
+  background: var(--color-dark);
+  color: var(--color-light);
+}

@@ -1,0 +1,6 @@
+/* Grid de 3 columnas en escritorio, como el wireframe */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
