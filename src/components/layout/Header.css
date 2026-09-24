@@ -1,0 +1,32 @@
+.header {
+  background: var(--color-dark);
+  color: var(--color-light);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 72px;
+}
+
+.header__logo {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.header__nav {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.header__link.active {
+  text-decoration: underline;
+}
+
+.header__session {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}

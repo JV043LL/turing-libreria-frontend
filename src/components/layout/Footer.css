@@ -1,0 +1,33 @@
+.footer {
+  background: var(--color-dark);
+  color: var(--color-light);
+  padding-block: var(--space-6) var(--space-4);
+  margin-top: auto;
+}
+
+.footer__inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--space-5);
+}
+
+.footer__logo {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: var(--space-2);
+}
+
+.footer__title {
+  font-size: 1rem;
+  margin-bottom: var(--space-2);
+}
+
+.footer__list {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.footer__copy {
+  margin-top: var(--space-5);
+  font-size: 0.875rem;
+}
