@@ -1,21 +1,75 @@
+/* 2 columnas en movil y 4 en escritorio, como la galeria del wireframe */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-3);
 }
 
-.gallery__image,
-.gallery__placeholder {
+.gallery__item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  border: 1px solid var(--color-light);
+}
+
+.gallery__image {
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
+  background: var(--color-accent);
+  transition: transform 0.3s ease;
 }
 
-.gallery__placeholder {
-  background: var(--color-accent);
+/* Sin imagen: rayado diagonal como el de los cuadros del wireframe */
+.gallery__image--empty {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--color-deep) 0 6px,
+    var(--color-accent) 6px 12px
+  );
+}
+
+.gallery__item:hover .gallery__image {
+  transform: scale(1.03);
 }
 
 .gallery__caption {
-  margin-top: var(--space-1);
-  font-size: 0.875rem;
+  position: relative; /* por encima de la imagen al hacer zoom */
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  background: var(--color-white);
+}
+
+.gallery__name {
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.gallery__item:hover .gallery__name {
+  color: var(--color-deep);
+}
+
+.gallery__summary {
+  display: none; /* en movil solo el nombre, para no saturar la cuadricula */
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+@media (min-width: 640px) {
+  .gallery__summary {
+    display: block;
+  }
+}
+
+@media (min-width: 960px) {
+  .gallery {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+  }
 }
