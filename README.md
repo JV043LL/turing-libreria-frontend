@@ -2,25 +2,30 @@
 
 Frontend de la librería en línea del periodo de prueba de Turing-IA. Consume la API de [turing-libreria-backend](https://github.com/JV043LL/turing-libreria-backend).
 
-> 🚧 La estructura y la conexión con la API están completas. Los estilos visuales y el diseño responsive están en desarrollo.
-
 ## Funcionalidades
 
 - Catálogo cargado desde la API, con filtro por género y botón **"Cargar más"**.
+- Sección **"Nuestro espacio"** cargada desde la API, con una página de detalle para cada espacio.
+- **Libreros** con su recomendación: la portada y el título del libro se piden a la API.
+- Página de detalle de cada libro.
 - Estados de carga, error (con opción de reintentar) y lista vacía.
 - Inicio de sesión y registro, con los errores de validación de la API mostrados bajo cada campo.
 - Sesión persistente: el token se guarda en el navegador y, si expira, la sesión se cierra sola.
 - Favoritos para usuarios con sesión.
 - Panel de administración (solo rol `admin`) para crear, editar y eliminar libros.
 - Rutas protegidas por sesión y por rol.
+- Diseño **mobile-first** y responsive: móvil, tablet (640 px) y escritorio (960 px), con menú desplegable en móvil.
+- Accesibilidad: navegación con teclado, enlace "Saltar al contenido", errores de formulario ligados a su campo y respeto a `prefers-reduced-motion`.
 
 ## Stack
 
 React 19, Vite y React Router. Sin librerías de UI: CSS propio con metodología BEM.
 
+Tipografías de Google Fonts: **Fraunces** para títulos y **Source Sans 3** para texto (con respaldo a fuentes del sistema si no cargan). Paleta 1 del documento de la prueba, definida como variables en `src/styles/variables.css`.
+
 ## Puesta en marcha
 
-Requisitos: Node.js 18+ y el [backend](https://github.com/JV043LL/turing-libreria-backend) corriendo.
+Requisitos: Node.js 18+ y el [backend](https://github.com/JV043LL/turing-libreria-backend) corriendo, con su `database/script.sql` más reciente cargado (incluye la tabla `spaces`).
 
 ```bash
 npm install
@@ -52,28 +57,47 @@ src/
 │   ├── auth.api.js
 │   ├── books.api.js
 │   ├── catalogs.api.js   # géneros y autores
-│   └── favorites.api.js
+│   ├── favorites.api.js
+│   └── spaces.api.js     # espacios de la librería
 ├── context/
 │   └── AuthContext.jsx   # usuario en sesión, login, registro y logout
 ├── hooks/
 │   ├── useBooks.js       # catálogo: filtro, paginación y "Cargar más"
+│   ├── useFetch.js       # hook genérico: carga, error y reintento
+│   ├── useBooksByIds.js  # libros recomendados por los libreros
 │   ├── useFavorites.js
-│   └── useGenres.js
+│   ├── useGenres.js
+│   └── useSpaces.js
 ├── components/
 │   ├── layout/           # Header, Footer
-│   ├── common/           # Loader, ErrorMessage, ProtectedRoute
+│   ├── common/           # Loader, ErrorMessage, ProtectedRoute, ScrollManager,
+│   │                     # FavoriteButton, SpaceImage
 │   ├── home/             # Hero, FeaturedCards, Gallery, Team
 │   ├── books/            # Catalog, GenreFilter, BookGrid, BookCard
 │   ├── auth/             # AuthForm
 │   └── admin/            # BookForm, BooksTable
-├── pages/                # HomePage, LoginPage, FavoritesPage, AdminPage
+├── pages/                # HomePage, BookDetailPage, SpacePage, LoginPage,
+│                         # FavoritesPage, AdminPage, NotFoundPage
 ├── styles/               # variables (paleta y espacios) y estilos base
-├── utils/format.js       # precio en MXN y portadas
+├── utils/format.js       # precio en MXN, portadas e iniciales
 ├── App.jsx               # rutas
 └── main.jsx              # punto de entrada
 ```
 
-Cada componente tiene su propio archivo `.css` con clases BEM (`bloque__elemento--modificador`).
+Cada componente tiene su propio archivo `.css` con clases BEM (`bloque__elemento--modificador`). En `public/espacios/` están las ilustraciones de la sección "Nuestro espacio".
+
+## Diseño responsive
+
+Los estilos se escriben primero para móvil y se amplían con `min-width`:
+
+| Sección | Móvil | Tablet (640 px) | Escritorio (960 px) |
+|---|---|---|---|
+| Header | Menú desplegable | Menú desplegable | Navegación en una fila |
+| Tarjetas destacadas | Apiladas | 3 columnas | 3 columnas |
+| Catálogo | 2 columnas, géneros deslizables | 2 columnas | 3 columnas |
+| Nuestro espacio | 2 columnas | 2 columnas con resumen | 4 columnas |
+| Libreros | Apilados | Apilados | 3 en fila, el central más grande |
+| Tabla del admin | Una tarjeta por libro | Tarjetas (tabla desde 800 px) | Tabla |
 
 ## Cómo se conecta con la API
 
@@ -91,6 +115,8 @@ Los componentes no llaman a `fetch` directamente: usan los módulos de `api/` o 
 | Ruta | Acceso | Contenido |
 |---|---|---|
 | `/` | Público | Inicio: hero, destacados, catálogo, galería y libreros. |
+| `/libros/:id` | Público | Detalle de un libro. |
+| `/espacios/:id` | Público | Detalle de un espacio de la librería. |
 | `/login` | Público | Inicio de sesión y registro. |
 | `/favoritos` | Con sesión | Libros guardados por el usuario. |
 | `/admin` | Admin | Gestión de libros. |
@@ -105,7 +131,7 @@ Se usó el wireframe izquierdo del documento de la prueba:
 | Bloque principal con título y botón | `Hero` |
 | 3 tarjetas sobre el borde del hero | `FeaturedCards` |
 | Grid de 6 tarjetas (desde la API) | `Catalog` → `BookGrid` → `BookCard` |
-| Galería de 4 imágenes | `Gallery` |
-| 3 círculos de equipo (el central más grande) | `Team` |
+| Galería de 4 imágenes (desde la API) | `Gallery` |
+| 3 círculos de equipo, el central más grande (libros desde la API) | `Team` |
 | Footer con logo y 3 columnas | `Footer` |
 
