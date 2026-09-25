@@ -45,6 +45,12 @@ export default function AdminPage() {
       .catch((err) => setError(err.message));
   }, []);
 
+  const abrirFormulario = (valor) => {
+    setAviso(null);
+    setEditando(valor);
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // en movil el formulario queda arriba de la lista
+  };
+
   const guardar = async (payload) => {
     if (editando === 'nuevo') {
       const creado = await booksApi.create(payload);
@@ -76,7 +82,7 @@ export default function AdminPage() {
       <div className="admin__header">
         <h1 className="section__title">Administrar libros</h1>
         {!editando && (
-          <button type="button" className="button button--primary" onClick={() => { setAviso(null); setEditando('nuevo'); }}>
+          <button type="button" className="button button--primary" onClick={() => abrirFormulario('nuevo')}>
             Agregar libro
           </button>
         )}
@@ -85,6 +91,7 @@ export default function AdminPage() {
       {aviso && <p className="status status--success" role="status">{aviso}</p>}
 
       {editando && (
+        <div className="admin__panel">
         <BookForm
           key={editando === 'nuevo' ? 'nuevo' : editando.id}
           book={editando === 'nuevo' ? null : editando}
@@ -93,6 +100,7 @@ export default function AdminPage() {
           onSubmit={guardar}
           onCancel={() => setEditando(null)}
         />
+        </div>
       )}
 
       {error && <ErrorMessage mensaje={error} onRetry={cargarLibros} />}
@@ -100,15 +108,15 @@ export default function AdminPage() {
 
       {!cargando && !error && (
         <>
-          <BooksTable books={books} onEdit={(book) => { setAviso(null); setEditando(book); }} onDelete={eliminar} />
+          <BooksTable books={books} onEdit={abrirFormulario} onDelete={eliminar} />
 
           {pagination && pagination.totalPages > 1 && (
             <nav className="pagination" aria-label="Páginas">
-              <button type="button" className="button button--ghost" disabled={page === 1} onClick={() => setPage(page - 1)}>
+              <button type="button" className="button button--ghost button--small" disabled={page === 1} onClick={() => setPage(page - 1)}>
                 Anterior
               </button>
               <span>Página {page} de {pagination.totalPages}</span>
-              <button type="button" className="button button--ghost" disabled={page === pagination.totalPages} onClick={() => setPage(page + 1)}>
+              <button type="button" className="button button--ghost button--small" disabled={page === pagination.totalPages} onClick={() => setPage(page + 1)}>
                 Siguiente
               </button>
             </nav>

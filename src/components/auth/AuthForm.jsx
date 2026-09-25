@@ -40,9 +40,10 @@ export default function AuthForm({ modo, onSubmit }) {
         onChange={cambiar}
         autoComplete={autoComplete}
         aria-invalid={Boolean(detalles[name])}
+        aria-describedby={detalles[name] ? `${name}-error` : undefined}
         required
       />
-      {detalles[name] && <p className="auth-form__hint">{detalles[name]}</p>}
+      {detalles[name] && <p id={`${name}-error`} className="auth-form__hint">{detalles[name]}</p>}
     </div>
   );
 

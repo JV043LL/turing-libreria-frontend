@@ -35,22 +35,31 @@ export default function FavoritesPage() {
   return (
     <section className="section container">
       <h1 className="section__title">Mis favoritos</h1>
-
-      {cargando && <Loader />}
-      {error && <ErrorMessage mensaje={error} onRetry={cargar} />}
-
-      {!cargando && !error && books.length === 0 && (
-        <p className="status">
-          Aún no guardas libros. <Link to="/#catalogo">Explora el catálogo</Link> y usa “Guardar”.
+      {!cargando && !error && books.length > 0 && (
+        <p className="section__intro">
+          {books.length === 1 ? 'Tienes 1 libro guardado.' : `Tienes ${books.length} libros guardados.`} Usa el
+          marcador para quitarlo de la lista.
         </p>
       )}
 
-      {books.length > 0 && (
-        <div className="book-grid">
-          {books.map((book) => (
-            <BookCard key={book.id} book={book} isFavorite onToggleFavorite={quitar} />
-          ))}
+      {cargando && <Loader texto="Cargando tus favoritos…" />}
+      {error && <ErrorMessage mensaje={error} onRetry={cargar} />}
+
+      {!cargando && !error && books.length === 0 && (
+        <div className="status">
+          <p>Aún no guardas libros.</p>
+          <Link to="/#catalogo" className="button button--primary">Explorar el catálogo</Link>
         </div>
+      )}
+
+      {books.length > 0 && (
+        <ul className="book-grid">
+          {books.map((book) => (
+            <li key={book.id} className="book-grid__item">
+              <BookCard book={book} isFavorite onToggleFavorite={quitar} />
+            </li>
+          ))}
+        </ul>
       )}
     </section>
   );

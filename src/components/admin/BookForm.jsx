@@ -53,7 +53,8 @@ export default function BookForm({ book, genres, authors, onSubmit, onCancel }) 
     }
   };
 
-  const hint = (name) => detalles[name] && <p className="book-form__hint">{detalles[name]}</p>;
+  const hint = (name) => detalles[name] && <p id={`bf-${name}-error`} className="book-form__hint">{detalles[name]}</p>;
+  const describedBy = (name) => (detalles[name] ? `bf-${name}-error` : undefined);
 
   const input = (name, label, props = {}) => (
     <div className={`book-form__field${props.wide ? ' book-form__field--wide' : ''}`}>
@@ -64,6 +65,7 @@ export default function BookForm({ book, genres, authors, onSubmit, onCancel }) 
         value={campos[name]}
         onChange={cambiar}
         aria-invalid={Boolean(detalles[name])}
+        aria-describedby={describedBy(name)}
         type={props.type || 'text'}
         step={props.step}
         min={props.min}
@@ -76,7 +78,7 @@ export default function BookForm({ book, genres, authors, onSubmit, onCancel }) 
   const select = (name, label, opciones) => (
     <div className="book-form__field">
       <label htmlFor={`bf-${name}`}>{label}</label>
-      <select id={`bf-${name}`} name={name} value={campos[name]} onChange={cambiar} required aria-invalid={Boolean(detalles[name])}>
+      <select id={`bf-${name}`} name={name} value={campos[name]} onChange={cambiar} required aria-invalid={Boolean(detalles[name])} aria-describedby={describedBy(name)}>
         <option value="">Selecciona…</option>
         {opciones.map((o) => (
           <option key={o.id} value={o.id}>{o.nombre}</option>
@@ -102,7 +104,7 @@ export default function BookForm({ book, genres, authors, onSubmit, onCancel }) 
 
         <div className="book-form__field book-form__field--wide">
           <label htmlFor="bf-sinopsis">Sinopsis</label>
-          <textarea id="bf-sinopsis" name="sinopsis" rows="4" value={campos.sinopsis} onChange={cambiar} />
+          <textarea id="bf-sinopsis" name="sinopsis" rows="4" value={campos.sinopsis} onChange={cambiar} aria-describedby={describedBy('sinopsis')} />
           {hint('sinopsis')}
         </div>
       </div>

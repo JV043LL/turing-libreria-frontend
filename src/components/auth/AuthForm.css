@@ -8,12 +8,42 @@
   gap: var(--space-1);
 }
 
-.auth-form__input {
-  padding: var(--space-2);
-  border: 1px solid var(--color-dark);
+.auth-form__label {
+  font-weight: 600;
 }
 
-.auth-form__hint,
+.auth-form__input {
+  min-height: 46px;
+  padding: var(--space-2) var(--space-3);
+  border: 2px solid var(--color-light);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+}
+
+.auth-form__input:hover {
+  border-color: #a9b8c2;
+}
+
+.auth-form__input:focus-visible {
+  border-color: var(--color-deep);
+  outline-offset: 0;
+}
+
+.auth-form__input[aria-invalid='true'] {
+  border-color: var(--color-error);
+}
+
+.auth-form__hint {
+  font-size: var(--text-sm);
+  color: var(--color-error);
+}
+
 .auth-form__note {
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.auth-form .button {
+  width: 100%;
+  margin-top: var(--space-2);
 }
