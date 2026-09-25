@@ -15,6 +15,7 @@ export default function Catalog() {
   return (
     <section id="catalogo" className="section container">
       <h2 className="section__title">Catálogo</h2>
+      <p className="section__intro">Elige un género para ver solo esos libros. Inicia sesión para guardar tus favoritos.</p>
 
       <GenreFilter genres={genres} selected={genre} onChange={setGenre} />
 
@@ -22,7 +23,7 @@ export default function Catalog() {
 
       {!error && books.length > 0 && (
         <>
-          <p className="section__meta">Mostrando {books.length} de {total} libros</p>
+          <p className="section__meta" aria-live="polite">Mostrando {books.length} de {total} libros</p>
           <BookGrid books={books} favorites={favorites} />
         </>
       )}

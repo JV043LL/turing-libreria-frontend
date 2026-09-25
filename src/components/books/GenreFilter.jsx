@@ -19,7 +19,8 @@ export default function GenreFilter({ genres, selected, onChange }) {
           aria-pressed={selected === genre.id}
           onClick={() => onChange(genre.id)}
         >
-          {genre.nombre} ({genre.total_libros})
+          {genre.nombre}
+          <span className="genre-filter__count">{genre.total_libros}</span>
         </button>
       ))}
     </div>

@@ -1,6 +1,34 @@
-/* Grid de 3 columnas en escritorio, como el wireframe */
+/* 1 columna en pantallas muy angostas, 2 en movil y tablet, 3 en escritorio (wireframe) */
 .book-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: var(--space-4);
+}
+
+.book-grid__item {
+  display: flex; /* las tarjetas de una fila miden lo mismo */
+}
+
+.book-grid__item > * {
+  flex: 1;
+}
+
+@media (min-width: 360px) {
+  .book-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3) var(--space-2);
+  }
+}
+
+@media (min-width: 640px) {
+  .book-grid {
+    gap: var(--space-4);
+  }
+}
+
+@media (min-width: 960px) {
+  .book-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
 }

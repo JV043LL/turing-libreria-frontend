@@ -1,14 +1,51 @@
+/* Tarjeta del wireframe: portada, metadatos, titulo y pie con precio y acciones */
 .book-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--color-dark);
+  overflow: hidden;
+  border: 1px solid var(--color-light);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+}
+
+.book-card__cover-link {
+  position: relative;
+  display: block;
+  padding: var(--space-3) var(--space-3) 0;
+  background: var(--color-dark);
 }
 
 .book-card__cover {
-  width: 100%;
+  width: 78%;
+  max-width: 170px;
+  margin-inline: auto;
   aspect-ratio: 2 / 3;
   object-fit: cover;
-  background: var(--color-light);
+  border-radius: 2px 4px 0 0;
+  background: var(--color-dark-soft);
+  box-shadow: 0 -2px 18px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease;
+}
+
+.book-card:hover .book-card__cover {
+  transform: translateY(-4px);
+}
+
+.book-card--sold-out .book-card__cover {
+  filter: grayscale(0.7);
+}
+
+.book-card__badge {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  color: var(--color-error);
+  font-size: var(--text-sm);
+  font-weight: 700;
 }
 
 .book-card__body {
@@ -16,16 +53,43 @@
   display: grid;
   align-content: start;
   gap: var(--space-1);
-  padding: var(--space-3);
+  padding: var(--space-3) var(--space-3) var(--space-2);
 }
 
-.book-card__genre,
-.book-card__author {
-  font-size: 0.875rem;
+.book-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.book-card__genre {
+  font-weight: 700;
+  color: var(--color-deep);
 }
 
 .book-card__title {
-  font-size: 1.125rem;
+  font-size: var(--text-md);
+}
+
+/* Todo el cuerpo de la tarjeta es clicable sin anidar enlaces */
+.book-card__link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.book-card__link:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.book-card__author {
+  color: var(--color-muted);
 }
 
 .book-card__footer {
@@ -33,10 +97,41 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
-  padding: var(--space-3);
-  border-top: 1px solid var(--color-dark);
+  padding: var(--space-2) var(--space-3) var(--space-3);
+}
+
+/* El boton queda por encima del enlace que cubre la tarjeta */
+.book-card__footer .favorite {
+  position: relative;
+  z-index: 1;
 }
 
 .book-card__price {
   font-weight: 700;
+}
+
+@media (min-width: 640px) {
+  .book-card__cover-link {
+    padding: var(--space-4) var(--space-4) 0;
+  }
+
+  .book-card__cover {
+    width: 62%;
+  }
+
+  .book-card__body {
+    padding: var(--space-3) var(--space-4) var(--space-2);
+  }
+
+  .book-card__footer {
+    padding: var(--space-2) var(--space-4) var(--space-4);
+  }
+
+  .book-card__title {
+    font-size: var(--text-lg);
+  }
+
+  .book-card__price {
+    font-size: var(--text-md);
+  }
 }
