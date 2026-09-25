@@ -1,21 +1,43 @@
-/* Las tarjetas suben sobre el hero con margen negativo */
+/* Las tarjetas se montan sobre la tabla del estante del hero */
 .featured {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-4);
-  margin-top: -80px;
   position: relative;
+  display: grid;
+  gap: var(--space-3);
+  margin-top: calc(var(--space-5) * -1);
 }
 
 .featured__card {
   display: block;
-  min-height: 140px;
   padding: var(--space-4);
+  border-radius: var(--radius-md);
   background: var(--color-accent);
   color: var(--color-dark);
+  box-shadow: var(--shadow-raised);
+  transition: background-color 0.15s ease;
+}
+
+.featured__card:hover {
+  background: var(--color-soft);
 }
 
 .featured__title {
-  font-size: 1.25rem;
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-1);
+  font-size: var(--text-xl);
+}
+
+.featured__text {
+  max-width: 32ch;
+}
+
+@media (min-width: 640px) {
+  .featured {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    margin-top: calc(var(--space-6) * -1);
+  }
+
+  .featured__card {
+    min-height: 150px;
+    padding: var(--space-4) var(--space-4) var(--space-5);
+  }
 }

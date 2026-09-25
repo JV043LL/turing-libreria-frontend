@@ -1,23 +1,91 @@
-/* Espacio inferior extra: las tarjetas destacadas se montan sobre el borde del hero (wireframe) */
+/* Hero oscuro que termina en un estante de lomos; las tarjetas
+   destacadas se apoyan sobre el estante, como en el wireframe. */
 .hero {
+  position: relative;
+  overflow: hidden;
   background: var(--color-dark);
-  color: var(--color-light);
-  padding-block: var(--space-7) calc(var(--space-7) + 60px);
+  color: var(--color-white);
 }
 
 .hero__content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-4);
+  padding-block: var(--space-6) var(--space-5);
   text-align: center;
 }
 
 .hero__title {
-  font-size: 3rem;
-  max-width: 18ch;
+  max-width: 16ch;
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
 
 .hero__text {
-  max-width: 55ch;
+  max-width: 46ch;
+  font-size: var(--text-md);
+  color: var(--color-light);
+}
+
+.hero__cta {
+  padding-inline: var(--space-5);
+}
+
+/* Estante: fila de lomos alineados abajo sobre una tabla */
+.hero__shelf {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 3px;
+  height: 96px;
+  padding-inline: var(--space-3);
+  border-bottom: 10px solid var(--color-deep); /* la tabla del estante */
+}
+
+.hero__spine {
+  flex-shrink: 0;
+  border-radius: 2px 2px 0 0;
+  background: var(--color-dark-soft);
+}
+
+/* Colores de los lomos, siempre de la paleta */
+.hero__spine:nth-child(5n + 1) {
+  background: var(--color-accent);
+}
+
+.hero__spine:nth-child(5n + 2) {
+  background: var(--color-light);
+}
+
+.hero__spine:nth-child(5n + 3) {
+  background: var(--color-dark-soft);
+}
+
+.hero__spine:nth-child(5n + 4) {
+  background: var(--color-soft);
+}
+
+.hero__spine:nth-child(5n) {
+  background: #2b5a73;
+}
+
+/* Un libro inclinado cada tanto rompe la fila */
+.hero__spine:nth-child(9n + 4) {
+  transform: rotate(-8deg);
+  transform-origin: bottom left;
+  margin-left: 8px;
+}
+
+@media (min-width: 640px) {
+  .hero__content {
+    padding-block: var(--space-7) var(--space-6);
+  }
+
+  .hero__shelf {
+    height: 120px;
+    gap: 4px;
+  }
 }
